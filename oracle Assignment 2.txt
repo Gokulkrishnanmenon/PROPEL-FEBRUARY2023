@@ -1,0 +1,113 @@
+1. 
+create table employee(
+empno int not null,
+empname varchar2(20),
+deptno int not null);
+
+insert all
+into employee(empno,empname,deptno)
+values(1001,'sarbas',140)
+into employee(empno,empname,deptno)
+values(1002,'godwin',120)
+into employee(empno,empname,deptno)
+values(1003,'ezhlil',130)
+select * from dual;
+
+create table emp2(
+id int not null,
+lastname varchar(20),
+deptid int not null);
+
+insert into emp2 select * from employee;
+
+select * from emp2
+
+create table emp3 as select * from employee;
+
+select * from emp3
+=============================================
+2.
+insert into employee values(1004,'rahul',110)
+select * from employee
+================================================
+3.
+create table department(
+deptNo int primary key not null,
+departmentName varchar(20),
+floor number(4),
+location varchar(30)
+);
+
+desc department
+
+create table employee2(
+empNo int primary key not null,
+managerId int not null,
+firstName varchar(20),
+lastName varchar(20),
+userId int unique,
+deptNo int,
+salary number(10,2),
+commision number(6,2),
+joiningDate varchar(10),
+designation char(20),
+constraint em_01 foreign key(deptNo) references department(deptNo)
+on delete cascade);
+
+desc employee2
+
+insert into department values(10,'Accounts',2,'Trivandrum')
+select * from department
+
+insert into employee values(10,20,'god','g',123,10,60,60,'03/15/2003','trainee')
+select * from employee2
+===========================================================================================
+5.
+create table customer(
+customerno int primary key,
+custname varchar(20),
+address varchar(40)
+);
+desc customer
+select * from customer
+insert into customer values(10, 'godwin',trivandrum)
+delete from customer where custno=100;
+======================================
+6.
+insert into employee values(10,101,'godwin',null,null,null,null,null,null,null)
+select * from employee
+==================================================================================
+7.
+update customer set address='New Delhi' where custno=10;
+=========================================================
+8.
+select * from employee where deptno=100 and salary >5000;
+=========================================================
+9.
+update employee set deptNo=10, firstName='godwin' where empNo=1002;
+==================================================================
+10.
+update student set Email='NA' where email is null;
+select * from student
+==================================================================
+11.
+delete from student where age>20;
+=================================
+12.
+delete from student where email is null and telephone is null;
+==============================================================
+13.
+delete from student where dob Like '05/06/%';
+=============================================
+14.
+update student set firstName='XXXX', dob= Current_Date where firstName like '____a%'
+====================================================================================
+15.
+delete from student where state Like '%a';
+==========================================
+16.
+update student set lastName='Jan' where dob Like '01%';
+========================================================
+17.
+delete from student where state Like 'T%';
+============================================
