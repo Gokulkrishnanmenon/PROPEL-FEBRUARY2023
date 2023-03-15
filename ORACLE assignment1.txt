@@ -1,0 +1,97 @@
+
+
+
+
+create table department(
+deptno int primary key not null,
+deptname varchar(20),
+location varchar(20)
+)
+drop table department
+desc department
+create table employee(
+empno int primary key not null,
+managerid int not null,
+firstname varchar(20),
+lastname varchar(20),
+userid int unique,
+deptno int,
+salary number(6,2),
+commission number(3),
+joiningdate varchar(10),
+designation varchar(25),
+constraint emp foreign key (deptno) references department (deptno) 
+on delete cascade);
+drop table employee
+desc employee
+
+insert into department values(100,'mech','TVM')
+insert into department values(101,'civil','kochi')
+insert into employee values(1001,2000,'gokul','krishna',100100,102,5000.50,5000.7,'13june2020','officer')
+select * from employee;
+select * from department;
+
+***************************
+Q2)
+create table employee1(
+employeeid int not null unique,
+salary number(7,2)
+);
+Alter table employee1 add HRA number(5,2);
+Alter table employee1 add pf number(5,2) check (pf<5000);
+select * from employee1;
+
+Q3)
+create table customer(
+custno number(13) primary key not null,
+custname varchar2(20),
+Address carchar2(20)
+);
+
+create table order1(
+orderno number(3),
+custno number(3),
+orderdate date,
+constraint od_1 foreign key(custno) references customer(custno)
+);
+
+create table orderitem(
+itemid number(3),
+orderno number(3),
+itemname varchar2(20),
+quantity number(3),
+constraint od_2 foreign key(orderno) references order1(orderno)
+);
+alter table customer modify Address varchar2(100);
+
+Q4)
+create table course(
+courseid varchar2(5) primary key not null,
+streamid varchar2(20),
+title varchar2(40),
+description varchar2(40),
+fees number
+);
+
+create table batch(
+Batchid varchar2(20) primary key not null,
+courseid varchar2(7),
+batchname char(1),
+constraint bh_1 foreign key(courseid) references course(courseid);
+
+create table student(
+studid varchar2(20) primary key not null,
+batchid varchar2(20),
+lastname varchar2(20),
+middlename varchar2(15),
+firstname varchar2(25),
+dob date,
+Address varchar2(25),
+city varchar(20),
+state varchar(20),
+zipcode varchar2(10),
+telephone varchar2(20),
+fax varchar2(20),
+email varchar2(20),
+grade char(1),
+check(grade in ('A','A+','A-','B','B+','B-','C','C+','C-','D','D+','D-',F,'F-','F+'));
