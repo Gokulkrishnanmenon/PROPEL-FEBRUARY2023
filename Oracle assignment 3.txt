@@ -1,0 +1,159 @@
+a. Write a query to load rows into My_Employee table (employees id, firstname, lastname, salary). Concatenate first letter of firstname and first seven characters of lastname to produce userid.
+b. List the minimum salary of various categories of employees in various departments having minimum salary greater than 1000.
+c. Display the name, with first letter capitalized and all other letters as lower case and length of their name for all employees whose name starts with J or M.
+d. Find the position of ‘A’ in the names of all employees.
+e. Display minimum, maximum, sum and average salary for each job.
+f. Display employee number, name, salary, salary increased by 15% rounded to to 2 decimal places. Label column New Salary.
+g. Create a query to display name and salary for all employees. Format salary to be 15 characters long left padded with $.
+h. Create a query that will display employee name and commission amount. If employee does not earn commission, put ‘No Commission’.
+i. Display all information from student table where student firstname is only 10 characters.
+j. Display manager number and salary of lowest paid employee for each manager. Exclude anyone whose manager is not known. Exclude any group where the minimum salary is less than $1000. Sort output in descending order of salary.
+k. Display employee name, hiredate and salary review date which is the first Monday after 6 months of service. Label column Review. Format dates to appear in format similar to ‘Sunday, the Seventh of September, 1981’.
+l. For each employee display the employee name and calculated number of months between today and date employee was hired. Label the column Months_Worked. Order your result by number of months employed. Round number of month up to closest whole number.
+m. Report needed: Name of Employee and Bonus. The salary should be rounded to the nearest thousand before calculating the Bonus.
+Bonus = 30% of annual income
+Eg: If salary is 23436; round it as 23000 before calculating the Bonus 30 % of (23000 * 12)
+Q1.
+
+
+create table employee(
+empid int not null,
+firstname varchar(20),
+lastname varchar(20),
+salary int
+);
+
+insert all
+into employee(empid,firstname,lastname,salary)
+values(1,'JgokuL','krishna',10000)
+into employee(empid,firstname,lastname,salary)
+values(2,'Mrahul','krishna',15000)
+into employee(empid,firstname,lastname,salary)
+values(3,'deepu','setu',500)
+select * from dual;
+desc employee
+truncate table employee
+select * from employee
+select concat (substr(firstname,1,1),substr(lastname,1,7)) as "userid" from employee
+
+Q2)
+select firstname,salary from employee where(salary>1000);
+
+Q3)
+select initcap(firstname),length(firstname)from employee where firstname like 'J%' or firstname like 'M%'             /* HERE searching is capslock sensitive*/
+
+Q4)
+select instr(concat(firstname,lastname),'a',1) from employee
+
+Q5)
+SELECT min(salary) from employee;
+select max(salary) from employee;
+select sum(salary) as "sum of working hours" from employee;
+select avg(salary) as " avg of working hours" from employee;
+
+#Question 6
+
+select employid,firstname,salary,salary+.15*salary as "new salary" from employee;
+
+#Question 7
+
+select firstname,LPAD(salary,15,'$') as "SALARY" from My_Employee;
+
+#Question 8
+
+create table My_Employee(
+employid int,
+firstname varchar(50),
+lastname varchar(50),
+salary number(10,2),
+commission varchar(10)
+);
+
+insert all
+into My_Employee(employid,firstname,lastname,salary,commission )
+values(1,'sarbas','muthangal',15000,50)
+into My_Employee(employid,firstname,lastname,salary,commission )
+values(2,'gokul','krishnan',25000,null)
+into My_Employee(employid,firstname,lastname,salary,commission )
+values(3,'ezhil','bharathik',10500,150)
+into My_Employee(employid,firstname,lastname,salary,commission )
+values(4,'jksarbas','muthangal',15000,100)
+into My_Employee(employid,firstname,lastname,salary,commission )
+values(5,'mygokul','krishnan',25000,null)
+select * from dual;
+select * from My_Employee 
+
+select firstname,nvl(to_char(commission ),'no commission') from My_Employee
+
+
+#Question 9
+
+create table student(
+studentid int,
+firstname varchar(20),
+lastname varchar(20)
+);
+drop table student
+insert all
+into student(studentid ,firstname ,lastname)
+values(1,'hdsjklslsf','bdkkdks')
+into student(studentid ,firstname ,lastname)
+values(2,'yryrrjfjfjut','jgkgd')
+into student(studentid ,firstname ,lastname)
+values(3,'wrwthdhfjjti','gdgsf')
+select * from dual;
+
+select * from student
+
+select studentid ,firstname ,lastname from student where length(firstname)=10
+
+#Question 10
+
+create table employee(
+empid int,
+empname varchar(25),
+managerid int,
+salary number(10,2),
+hiredate date,
+bonus number(10,2)
+);
+insert all
+into employee(empid ,empname,managerid ,salary ,hiredate ,bonus )
+values(1,'sarbas',100,1000,'12/11/2020',null)
+into employee(empid ,empname,managerid ,salary ,hiredate ,bonus )
+values(2,'vishnu',101,800,'07/10/2021',null)
+into employee(empid ,empname,managerid ,salary ,hiredate ,bonus )
+values(3,'karthik',100,1130,'02/08/2020',null)
+into employee(empid ,empname,managerid ,salary ,hiredate ,bonus )
+values(4,'jsy',null,1450,'11/11/2020',null)
+insert into employee(empid ,empname,managerid ,salary ,hiredate ,bonus )
+values(5,'sujith',102,1650,'11/11/2020',null)
+insert into employee(empid ,empname,managerid ,salary ,hiredate ,bonus )
+values(6,'ajay',101,1850,'11/11/2020',null)
+insert into employee(empid ,empname,managerid ,salary ,hiredate ,bonus )
+values(7,'ajay',101,2250,'11/11/2020',null)
+insert into employee(empid ,empname,managerid ,salary ,hiredate ,bonus )
+values(8,'aju',103,2250,'11/11/2020',null)
+
+
+select * from dual;
+select * from employee
+truncate table employee
+update employee set bonus=round(salary/1000)*1000*.3
+select managerid,min(salary) from employee where managerid is not null group by managerid having min(salary)>1000 order by min(salary) desc;
+
+Q 11)
+select empname,hiredate ,to_char(to_date(next_day(add_months(hiredate ,6),'MONDAY')),'Day, Month DD, YYYY') as "salarY review date" from employee
+
+#Question 12
+
+SELECT empname,round(MONTHS_BETWEEN(SYSDATE,hiredate )) AS "MONTHS_WORKED" FROM
+employee ORDER BY MONTHS_WORKED ;
+
+
+#Question 13
+
+select empname,bonus from employee
+update employee set bonus=round(salary/1000)*1000*.3*12
+select * from employee
+
