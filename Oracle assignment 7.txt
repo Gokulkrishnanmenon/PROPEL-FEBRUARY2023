@@ -1,0 +1,151 @@
+VIEW,INDEX.SEQUENCE,SYNONYMS
+============================
+
+1. The programmer needs to retrieve the minimum salary and the maximum salary using a simple query.
+Solution: Create a view, which contain the maximum and minimum salary of all the departments from the employee table.
+
+2. Display the content of above view.
+
+3. The programmer needs to retrieve the deptno, detaname and the name of the employee without using a join.
+Solution: Create a view, which will contain the deptno, name of department, name of the employees.
+
+
+4. The programmer needs to retrieve the employee names and their managers name order by descending order of manager names, without using a join.
+
+5. Create a non-unique index on foreign key column deptid in Employee table.
+
+6. Display indexes and uniqueness that exist in data dictionary for Employee table.
+
+7. The programmer needs the primary key value of department table (deptno) to be generated automatically. Criteria: starting value 1 and incrementing by 1,maximum value is 99.
+Solution: Create a sequence deptnoseq
+Use the Sequence to insert the value into the department table (deptno).
+
+8. Create a view called Emp_vu based on employee number, name and department number from emp table. Change heading for employee name to Employee.
+
+
+9. Select view name and text from data dictionary.
+
+10. Using view Emp_vu write a query to display all employee names and department numbers.
+
+11. Create a view called Salary_vu based on employee name, department name, salary and Salary grade for all employees. Label column Employee, 
+Department, Salary And Grade respectively.
+
+12. Create a sequence to be used with primary key column of Department table. Sequence should start at 60 and have a maximum value of 200. 
+Have your sequence increment by 10. Name it as deptid_seq.
+
+13. Write a query to display following information about your sequence: sequence name, maximum value, increment-size and last number.
+
+=========================================
+Question 1
+create view salary as select deptno,max(sal) as "maximum salary",min(sal) as "min salary" from emp group by deptno
+
+#Question 2
+select * from salary
+
+
+#Question 3
+select * from employee
+select * from department
+create view empdepart as select employee.DEPTNO,department.DEPTNAME,employee.empname from employee,department
+where employee.deptno=department.deptno
+
+select * from empdepart
+
+
+#Question 4
+
+create view empmanager(em_name,manager_name) as select X.empname,Y.empname from employee X,employee Y
+WHERE X.EMPID=Y.MANAGERID
+
+select * from empmanager
+	
+
+#Question 5
+
+CREATE INDEX Empindex ON EMPLOYEE(DEPTNO)
+
+#Question 6
+
+SELECT * FROM user_indexes WHERE table_name = 'EMPLOYEE' AND uniqueness='NONUNIQUE';
+
+
+
+#Question 7
+
+create table departmentseq(
+ deptno int primary key,
+ deptname varchar(30)
+)
+
+create sequence deptnosq
+start with 1
+increment by 1
+minvalue 1
+maxvalue 99
+nocycle;
+
+insert into departmentseq values(deptnosq.nextval,'electrical')
+insert into departmentseq values(deptnosq.nextval,'mechanical')
+insert into departmentseq values(deptnosq.nextval,'civil')
+insert into departmentseq values(deptnosq.nextval,'cs')
+
+select * from departmentseq 
+
+
+#Question 8
+
+select * from emp
+
+
+create view Emp_vu as select EMPNO,ENAME as "Employee",DEPTNO from emp
+
+select * from Emp_vu 
+
+#Question 9
+
+SELECT view_name, text FROM user_views;
+
+
+#Question 10
+
+select DEPTNO,"Employee" from Emp_vu 
+
+#Question 11
+
+select * from emp
+
+create table salary_grade(
+grade int primary key,
+min_sal number(10),
+max_sal number(10)
+)
+
+insert into salary_grade values(1,800,1300)
+insert into salary_grade values(2,1301,1500)
+insert into salary_grade values(3,1501,2100)
+insert into salary_grade values(4,2101,3100)
+insert into salary_grade values(5,3101,5000)
+
+select * from salary_grade 
+
+CREATE VIEW Salary_vu as select ENAME AS "EMPLOYEE",DNAME AS "DEPARTMENT",SAL AS "SALARY" FROM EMP,DEPT
+WHERE EMP.DEPTNO=DEPT.DEPTNO
+AND
+EMP.max_sal=GRADE.max_sal;
+
+#Question 12
+
+
+create sequence deptid_seq
+start with 60
+increment by 10
+minvalue 60
+maxvalue 200
+nocycle;
+
+
+#Question 13
+
+SELECT sequence_name, max_value, increment_by, last_number
+FROM all_sequences
+WHERE SEQUENCE_NAME= 'DEPTID_SEQ';
