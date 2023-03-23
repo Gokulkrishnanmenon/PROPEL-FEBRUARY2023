@@ -1,0 +1,107 @@
+1, Create a PL/SQL block that computes commission amount for a given employee based on employees salary. Accept employee number as user input with SQL*PLUS substitution variables.
+A)If employees salary is <1000 set commission amount for employee to 10% of salary
+B) If employee salary is between 1000 and 1500 set commission amount for employee to 15% of salary
+C) If employees salary exceeds 1500 set commission amount for employee to 20% of salary.
+D) If employee salary is null set commission amount for employee to 0.
+
+
+2, Select the record from emp which has highest salary & insert it into the table empl (empno, comm) with commission as 10% of salary.
+
+3, Write a PL/SQL program to create a emp %ROWTYPE record.
+Accept empno from the user and display all the information about the employee
+
+4, Write an anonymous block for getting the number of rows present in a table
+
+5,Write PL/SQL block to delete the record of an employee whose salary is less than 4000.Get the empno from the user
+
+
+#Question 1
+
+DECLARE
+ salary EMP.SAL%TYPE;
+BEGIN
+ SELECT SAL INTO salary FROM EMP WHERE EMPNO =:ENTER_EMPLOYEE_NUMBER;
+ IF(salary<1000)THEN
+    update EMP set COMM=salary*.1 where EMPNO=:ENTER_EMPLOYEE_NUMBER;
+    dbms_output.put_line('Commission = '||salary*.1);
+ ELSIF(salary BETWEEN 1000 AND 1500)THEN
+    update EMP set COMM=salary*.15 where EMPNO=:ENTER_EMPLOYEE_NUMBER;
+    dbms_output.put_line('Commission = '||salary*.15);
+ ELSIF(salary>1500)THEN
+    update EMP set COMM=salary*.2 where EMPNO=:ENTER_EMPLOYEE_NUMBER;
+    dbms_output.put_line('Commission = '||salary*.2);
+ ELSIF(salary=NULL)THEN
+    update EMP set COMM=0 where EMPNO=:ENTER_EMPLOYEE_NUMBER;
+    dbms_output.put_line('Commission = '||0);
+ ELSE
+    dbms_output.put_line('INVALID INPUT');
+ END IF;
+END;
+
+
+#Question 2
+
+CREATE TABLE EMP1(
+ empid varchar(30),
+ commision varchar(30)
+);
+
+DECLARE
+ empid EMP.EMPNO%TYPE;
+ salary EMP.SAL%TYPE;
+BEGIN
+ SELECT EMPNO,SAL into empid,salary from EMP WHERE SAL=(select max(SAL) from EMP);
+ insert into emp1 values(empid,salary*.1);
+END;
+ 
+select * from emp1
+
+#Question 3
+
+DECLARE
+ Empid EMP.EMPNO%TYPE; 
+ name EMP.ENAME%TYPE;
+ designation EMP.JOB%TYPE;
+ manager EMP.MGR%TYPE;
+ hdate EMP.HIREDATE%TYPE;
+ salary EMP.SAL%TYPE;
+ commission EMP.COMM%TYPE;
+ deptid EMP.DEPTNO%TYPE;
+BEGIN
+ SELECT EMPNO,ENAME,JOB,MGR,HIREDATE,SAL,COMM,DEPTNO INTO EMPID,NAME,DESIGNATION,MANAGER,HDATE,SALARY,COMMISSION,DEPTID FROM EMP WHERE EMPNO=:ENTER;
+ dbms_output.put_line('EMPNO = '||Empid );
+ dbms_output.put_line('ENAME : '||name);
+ dbms_output.put_line('JOB : '||designation );
+ dbms_output.put_line('MGR : '||manager );
+ dbms_output.put_line('HIREDATE : '||hdate );
+ dbms_output.put_line('SAL = '||salary );
+ dbms_output.put_line('COMM = '||commission );
+ dbms_output.put_line('DEPTNO = '||deptid);
+
+END;
+
+
+#Question 4
+
+DECLARE
+ CountOfRow int;
+BEGIN
+ SELECT COUNT(*) INTO CountOfRow FROM EMP; 
+ dbms_output.put_line('NUMBER OF ROWS IN TABLE= '||CountOfRow);
+END;
+
+#Question 5
+
+DECLARE
+ salary EMP.SAL%TYPE;
+ eid EMP.EMPNO%TYPE;
+BEGIN
+ eid:=:enter_employee_id;
+ select SAL into salary from EMP where EMPNO=eid;
+ IF(salary<4000)THEN
+  delete from EMP where EMPNO=eid;
+ END IF;
+END;
+
+select * from EMP
+ 
