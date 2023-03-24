@@ -1,0 +1,113 @@
+create table employee3(
+empid int primary key not null,
+empname varchar(30),
+phone int,
+email varchar(30),
+areacode int
+)
+
+drop table employee3
+
+insert into employee3(empid,empname,phone,email,areacode)
+values(1,'gokuL',8593981343,'gokul@gmail.com',2012)
+insert into employee3(empid,empname,phone,email,areacode)
+values(2,'rahul',9946661620,'rahul@gmail.com',3015)
+insert into employee3(empid,empname,phone,email,areacode)
+values(3,'deepu',7736369863,'deepu@gmail.com',2055)
+insert into employee3(empid,empname,phone,email,areacode)
+values(4,'vishnu',8593981344,'vishnu@gmail.com',5555)
+select * from dual;
+
+select * from employee3
+
+create table manufacturer(
+mfname varchar(30) primary key not null,
+city varchar(30),
+state varchar(30)
+)
+insert all
+into manufacturer(mfname,city,state)
+values('nissan','kochi','kerala')
+into manufacturer(mfname,city,state)
+values('toyoto','kollam','kerala')
+into manufacturer(mfname,city,state)
+values('maruti','chennai','tamilnadu')
+into manufacturer(mfname,city,state)
+values('hyundai','bluetown','southdekota')
+select * from dual;
+select *  from manufacturer
+
+create table computer(
+serialno int primary key not null,
+mfname varchar(30),
+constraint em foreign key (mfname) references manufacturer (mfname) on delete cascade,
+
+model varchar(30),
+weight number(7,2),
+empid int,
+constraint emp foreign key (empid) references employee3 (empid) on delete cascade,
+isactive varchar(30)
+);
+drop table computer
+
+insert 
+into computer(serialno,mfname,model,weight,empid,isactive)
+values(101,'nissan','XI',1300,1,'inuse')
+insert into computer(serialno,mfname,model,weight,empid,isactive)
+values(102,'toyoto','X',900,2,'not active')
+insert into computer(serialno,mfname,model,weight,empid,isactive)
+values(103,'maruti','SS',600,3,'in use')
+insert into computer(serialno,mfname,model,weight,empid,isactive)
+values(104,'hyundai','XUV','2000',4,'not active')
+select * from computer
+
+Q1) 
+
+select mfname from manufacturer where state like '%southdekota%'
+
+Q2)
+
+select avg(weight) from computer where ISACTIVE='inuse'
+
+Q 3)
+SELECT empname from employee3 where areacode like '2%'
+
+Q4)
+select serialno,weight from computer where weight < (select avg(weight) from computer)
+
+Q 5)
+
+select mfname from COMPUTER where ISACTIVE = 'not active' 
+
+Q6)
+create view view_1 as
+select empname,serialno,city from employee3 e inner join computer d
+on(e.empid=d.empid)
+inner join  manufacturer m
+on (d.mfname = m.mfname);
+
+Q7)
+
+create or replace procedure empview(a in int)
+is
+employeeid int;
+serialnumber int;
+manfname varchar(30);
+newmodel varchar(30);
+newweight weight(7,2);
+begin
+employeeid:=a;
+select empid,serialno,mfname,model,weight into employeeid,serialnumber,manfname,newmodel,newweight from employee3 where empid=id;
+dbms_output.put_line('serialno is '||serialnumber ||,'manufacturerno is '||manfname||,'modelno is'||newmodel||,'weight is'||newweight);
+end;
+
+declare
+employeeid int;
+serialnumber int;
+manfname varchar(30);
+newmodel varchar(30);
+newweight weight(7,2);
+begin
+id:=:a;
+empview(id);
+end;
