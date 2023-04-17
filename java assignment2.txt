@@ -1,0 +1,290 @@
+package com.faith.bean;
+
+import java.util.Scanner;
+
+public class assignment2 {
+
+	public static void main(String[] args) {
+		/*
+		 * Q1. Consider an electricity billing calculation. There are two types
+		 * of customers. Domestic and Industry. If it is domestic, the slabs are
+		 * like this, The reading in the range,0-100 then amt=units* Rs.1
+		 * 
+		 * 100-200amt=units*1.5
+		 * 
+		 * 200-500amt=units*2
+		 * 
+		 * >500amt = units*5
+		 * 
+		 * If it is industrial, the amt =units*10.
+		 */
+
+		/*
+		 * Scanner input=new Scanner(System.in);
+		 * System.out.println("select the type of customer 1.domestic 2.industrial"
+		 * ); int slab=Integer.parseInt(input.nextLine());
+		 * 
+		 * switch(slab){ case 1: System.out.println("enter unit"); int
+		 * unit1=Integer.parseInt(input.nextLine());
+		 * System.out.println("bill amount is " + domestic(unit1)); break; case
+		 * 2: System.out.println("enter unit"); int
+		 * unit2=Integer.parseInt(input.nextLine());
+		 * System.out.println("bill amount  is " +industrial(unit2)); break;
+		 * default: System.out.println("Invalid option"); break;
+		 * 
+		 * 
+		 * }
+		 * 
+		 * }
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * private static double industrial(int unit2) { double bill=0.0;
+		 * bill=unit2*10; return bill; }
+		 * 
+		 * 
+		 * 
+		 * 
+		 * 
+		 * private static double domestic(int unit1) { double bill=0.0;
+		 * if(unit1<=100){ bill=unit1*1; }else if(unit1>100&&unit1<=200){
+		 * bill=100+((unit1-100)*1.5); }else if(unit1>200&&unit1<=500){
+		 * bill=100+((unit1-100)*2); }else if(unit1>500){
+		 * bill=100+((unit1-100)*5); } return bill;
+		 */
+
+		/*
+		 * Q2.Write a program that uses an if-else-if ladder Write a program
+		 * that uses an if-else-if ladder to determine which season a particular
+		 * Month is in. Months 1, 2 and 12 are come under winter season. Months
+		 * 3, 4 and 5 are come under spring season. Months 6, 7 and 8 are come
+		 * under summer season. Months 9, 10 and 11 are come under autumn
+		 * season. Accept a number for month from user and print the result
+		 * accordingly.
+		 */
+
+		/*Scanner input = new Scanner(System.in);
+		System.out.println("enter the number of month");
+		int month = Integer.parseInt(input.nextLine());
+		season(month);
+
+	}
+
+	private static String season(int month) {
+		if (month == 1 || month == 2 || month == 12) {
+			System.out.println("winter");
+		} else if (month == 3 || month == 4 || month == 5) {
+			System.out.println("spring");
+		} else if (month == 6 || month == 7 || month == 8) {
+			System.out.println("summer");
+		} else if (month == 9 || month == 10 || month == 11) {
+			System.out.println("autumn");
+		}else {
+			System.out.println("invalid input");
+
+		}
+
+		return null;*/
+		
+	//Q2.
+		/*Scanner input = new Scanner(System.in);
+		System.out.println("Enter the month: ");
+		int month = Integer.parseInt(input.nextLine());
+		if (month == 1) {
+		System.out.println("WINTER SEASON");
+
+		} else if (month == 2) {
+		System.out.println("WINTER SEASON");
+
+		} else if (month == 3) {
+		System.out.println("SPRING SEASON");
+		} else if (month == 4) {
+		System.out.println("SPRING SEASON");
+		} else if (month == 5) {
+		System.out.println("SPRING SEASON");
+		} else if (month == 6) {
+		System.out.println("SUMMER SEASON");
+		} else if (month == 7) {
+		System.out.println("SUMMER SEASON");
+		} else if (month == 8) {
+		System.out.println("SUMMER SEASON");
+		} else if (month == 9) {
+		System.out.println("AUTUMN SEASON");
+		} else if (month == 10) {
+		System.out.println("AUTUMN SEASON");
+		} else if (month == 11) {
+		System.out.println("AUTUMN SEASON");
+		} else if (month == 12) {
+		System.out.println("WINTER SEASON");
+		} else {
+		System.out.println("invalid month");
+		}*/
+		
+	//Q3.
+		/*char choice;
+		do{
+		System.out.println("Select one of the following:"+
+		"\n1.If"+"\n2.While"+"\n3.Do while"+"\n4.Switch"+"\n5.For");
+		Scanner input=new Scanner(System.in);
+		int num=Integer.parseInt(input.nextLine());
+		switch(num){
+		case(1):
+			String a="if(condition) {"+
+				  "\nblock of code to be executed if the condition is true"+
+			"\n};";
+			System.out.println(a);
+			break;
+		case(2):
+			String b="while (condition) {"+
+				  "\ncode block to be executed"+
+			"\n};";
+		System.out.println(b);
+		break;
+		case(3):
+			String c="do {"+
+				  "\ncode block to be executed"+
+			"\n}"+
+			"\nwhile (condition);";
+		System.out.println(c);
+		break;
+		case(4):
+			String d="switch(expression) {"+
+			  "\ncase x:"+
+				     "\ncode block"+
+				    "\nbreak;"+
+				  "\ncase y:"+
+				    "\ncode block"+
+				    "\nbreak;"+
+				  "\ndefault:"+
+				    "\ncode block"+
+				"\n}";
+		System.out.println(d);
+		break;
+		case(5):
+			String e="for (statement 1; statement 2; statement 3) {"+
+				  "\ncode block to be executed"+
+			"\n}";
+		System.out.println(e);
+		break;
+		default:
+			System.out.println("invalid");						
+		}
+		System.out.println("Do you want to check more:(Y/N)");
+		choice=input.next().charAt(0);
+		}while(choice=='Y'||choice=='y');*/
+		
+  //Q4.
+		
+		/*int rows=7;      
+		//inner loop  
+		for (int i= rows-1; i>=0 ; i--)  
+		{  
+		//outer loop  
+		for (int j=0; j<=i; j++)  
+		{  
+		//prints star and space  
+		System.out.print("*" + " ");  
+		}  
+		//throws the cursor in the next line after printing each line  
+		System.out.println();  
+		}*/
+		
+ //Q5.
+		
+	/*Scanner input=new Scanner(System.in);
+	System.out.println("enter the value");
+	double src = Double.parseDouble(input.nextLine());
+	int a=(int) (src);
+	System.out.println(a);*/
+		
+//Q6.
+		/*Scanner input = new Scanner(System.in);
+		System.out.println("Enter the month: ");
+		int month = Integer.parseInt(input.nextLine());
+		if (month == 1) {
+		System.out.println("january");
+
+		} else if (month == 2) {
+		System.out.println("february");
+
+		} else if (month == 3) {
+		System.out.println("march");
+		} else if (month == 4) {
+		System.out.println("april");
+		} else if (month == 5) {
+		System.out.println("may");
+		} else if (month == 6) {
+		System.out.println("june");
+		} else if (month == 7) {
+		System.out.println("july");
+		} else if (month == 8) {
+		System.out.println("august");
+		} else if (month == 9) {
+		System.out.println("september");
+		} else if (month == 10) {
+		System.out.println("october");
+		} else if (month == 11) {
+		System.out.println("november");
+		} else if (month == 12) {
+		System.out.println("december");
+		} else {
+		System.out.println("invalid month");
+		
+	}*/  
+	//Q7.
+		String countryName;
+
+		String countryLanguageUsa;
+		int customerIdUsa;
+		String billingDateUsa;
+		double amountUsa;
+
+		String countryLanguageJap;
+		int customerIdJap;
+		String billingDateJap;
+		double amountJap;
+		String choice = "n";
+
+		Scanner in = new Scanner(System.in);
+		System.out.println("Enter the country name (USA OR JAPAN)");
+		countryName=in.nextLine();
+		do{
+		if(countryName.equalsIgnoreCase("usa")){
+
+		System.out.println("Enter the country language");
+		countryLanguageUsa=in.nextLine();
+		System.out.println("Enter the customer ID");
+		customerIdUsa=Integer.parseInt(in.nextLine());
+		System.out.println("Enter the bill date");
+		billingDateUsa=in.nextLine();
+		System.out.println("Enter the bill amount");
+		amountUsa=Double.parseDouble(in.nextLine());
+
+		}
+		else if(countryName.equalsIgnoreCase("japan")){
+
+		System.out.println("Enter the country language");
+		countryLanguageJap=in.nextLine();
+		System.out.println("Enter the customer ID");
+		customerIdJap=Integer.parseInt(in.nextLine());
+		System.out.println("Enter the bill date");
+		billingDateJap=in.nextLine();
+		System.out.println("Enter the bill amount");
+		amountJap=Double.parseDouble(in.nextLine());
+
+		}
+		else{
+		System.out.println("Invalid country");
+		}
+
+		System.out.println("Do you wish to continue (y or n)?");
+		choice=in.nextLine();
+		}while(choice.equalsIgnoreCase("y"));
+		}
+
+		
+	}
+
+
